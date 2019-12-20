@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "tell application \"System Events\" 
+	keystroke \"t\" using command down
+	delay 0.01
+	keystroke \"$1\"
+	delay 0.01
+	keystroke return
+end tell" | osascript
+
