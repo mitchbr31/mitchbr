@@ -12,6 +12,8 @@ Here is the project structure:
           - Breadth-First Search
 
   2. MATLAB Projects
+  
+      2.1 Minesweeper
 
   3. Bash Projects
       
