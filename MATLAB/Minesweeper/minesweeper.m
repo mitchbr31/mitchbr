@@ -1,6 +1,6 @@
 clear;clc;close all
 
-%% Load the images
+%% Load the images for the game board
 
 b1 = imread(strcat(pwd,'/images/1.jpg'));
 b2 = imread(strcat(pwd,'/images/2.jpg'));
