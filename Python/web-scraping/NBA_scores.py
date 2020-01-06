@@ -1,13 +1,23 @@
 from bs4 import BeautifulSoup
+import sys
 import requests
 import datetime
 
-# Input date to find scores from. Gives the option of doing previous day's scores or any date the user wishes to enter
-curdate = input("Enter the date you want the score in YYYYMMDD or say 'yesterday': ")
+# Input a user string until they enter a valid format
+while True:
+	# Input date to find scores from. Gives the option of doing previous day's scores or any date the user wishes to enter
+	curdate = input("Enter the date you want the score in YYYYMMDD or say 'yesterday': ")
 
-if curdate == "yesterday":
-	yesterday = datetime.date.today() - datetime.timedelta(days=1)
-	curdate = yesterday.strftime('%Y%m%d')
+	if curdate == "yesterday":
+		yesterday = datetime.date.today() - datetime.timedelta(days=1)
+		curdate = yesterday.strftime('%Y%m%d')
+		break
+	else:
+		try:
+			int(curdate)
+			break
+		except:
+			print("Not a valid date format")
 
 # Input the link and convert into BeautifulSoup format
 link = requests.get("https://www.cbssports.com/nba/scoreboard/" + curdate + "/")
@@ -19,7 +29,8 @@ teams = []
 x = soup.find_all("a", class_="team")
 for i, link in enumerate(x):
     teams.append([link.contents[0]])
-    
+
+   
 # Create lists for storing scores as well as if the game went into overtime
 scores = []
 overtime = []
@@ -52,6 +63,10 @@ for i in enumerate(teams):
 # Print the date the user requested
 print("NBA scores for the date of " + datetime.datetime.strptime(curdate, "%Y%m%d").strftime("%B %d, %Y") + ":")
 
+# If there is not data for the provided date, let the user know
+if teams == []:
+	print("It appears there were no NBA games on the given date. Check your input format and try again.")
+ 
 # Print off each game and its score
 for i in range(0, len(teams), 2):
     print(teams[i][0] + " vs. " + teams[i+1][0] + ", " + overtime[i])
