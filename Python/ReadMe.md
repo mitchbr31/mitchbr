@@ -7,3 +7,8 @@ Using the Breadth First Search algorithm to run against a csv file. This can be 
 1.2. A* Search
 
 Using the A* Search algorithm to run against a csv file. This can be viewed in both a .py format, as well as an Anaconda notebook.
+
+# 2. Web Scraping
+2.1 NBA Scores
+
+Uses BeautifulSoup to scrape information on NBA games from a provided date. This will search for all games and their respective final scores for a date provided by the user.
