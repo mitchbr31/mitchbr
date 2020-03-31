@@ -10,6 +10,7 @@ Here is the project structure:
       
           - A* Search
           - Breadth-First Search
+      1.2 Web scraping: Searching NBA scores from an inputted date.
 
   2. MATLAB Projects
   
