@@ -4,18 +4,18 @@ Outlined here are some personal projects I have worked on in the past couple yea
 
 Here is the project structure:
 
-  1. Python Projects
+# Python Projects
   
-      1.1 Pathfinding Search algorithms:
+1. Pathfinding Search algorithms:
       
-          - A* Search
-          - Breadth-First Search
-      1.2 Web scraping: Searching NBA scores for an inputted date.
+    - A* Search
+    - Breadth-First Search
+2. Web scraping: Searching NBA scores for an inputted date.
 
-  2. MATLAB Projects
+# MATLAB Projects
   
-      2.1 Minesweeper
+1. Minesweeper
 
-  3. Bash Projects
-      
-      3.1 "nt" - Opening a new terminal tab and executing a command there
+# Bash Projects
+
+1. "nt" - Opening a new terminal tab and executing a command there
