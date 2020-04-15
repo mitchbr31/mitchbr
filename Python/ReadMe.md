@@ -2,11 +2,11 @@
 # 1. Searches
 1.1. Breadth First Search
 
-Using the Breadth First Search algorithm to run against a csv file. This can be viewed in both a .py format, as well as an Anaconda notebook.
+Using the Breadth First Search algorithm to run against a csv file
 
 1.2. A* Search
 
-Using the A* Search algorithm to run against a csv file. This can be viewed in both a .py format, as well as an Anaconda notebook.
+Using the A* Search algorithm to run against a csv file
 
 # 2. Web Scraping
 2.1 NBA Scores
