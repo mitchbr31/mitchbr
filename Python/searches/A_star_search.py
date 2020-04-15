@@ -1,76 +1,101 @@
+#!/usr/bin/env python3
+
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import the world
-rawworld = np.genfromtxt('world.csv', delimiter=',')
 
-# Transfer world into a new array with walls all around to avoid edge cases
-world = np.ones((np.size(rawworld,1)+2,np.size(rawworld,1)+2))
-world[1:-1,1:-1] = rawworld
+def load_world(file):
+    # Import the world
+    raw_world = np.genfromtxt(file, delimiter=',')
 
-# Starting and ending points
-start = [1,1]
-end = [20,20]
+    # Transfer world into a new array with walls all around to avoid edge cases
+    world = np.ones((np.size(raw_world, 1)+2, np.size(raw_world, 1)+2))
+    world[1:-1, 1:-1] = raw_world
 
-# Queue row data: current node x and y, heuristic cost, cost from origin, total score, parent node
-queue = [[start, 0, 0, 0, start]]
-# Closed list, prevents nodes from being opened more than once
-closed = []
+    return world
 
-# Find children in the queue (4-connected)
-while queue:
-    
-    # Remove node from queue, add to closed nodes
-    node = queue.pop(0)
-    closed.append(node)
-    
-    # End when at goal
-    if node[0] == end:
-        queue = []
-        
-    for x in [-1,1]:
-    
-        # Open children if they are not in closed and are not a wall
-        if not any([node[0][0]+x,node[0][1]] == closed[i][0] for i in range(len(closed))) and world[node[0][0]+x][node[0][1]] != 1:
-            
-            # Find current heuristic and path cost
-            oCost = node[2] + 1
-            hDist = np.sqrt((end[0] - node[0][0]+x)**2 + (end[1] - node[0][1])**2)
-            
-            if not any([node[0][0]+x,node[0][1]] == queue[i][0] for i in range(len(queue))):
-                # Append node child to queue if it is not yet in it
-                queue.append([[node[0][0]+x,node[0][1]], hDist, oCost, hDist+oCost, node[0]])
-            
-            elif any([i for i in range(len(queue)) if queue[i][0] == [node[0][0]+x,node[0][1]] and queue[i][3] > hDist+oCost]):    
-                # If the node exists in the queue, and the new score is lower, update the node
-                index = [i for i in range(len(queue)) if queue[i][0] == [node[0][0]+x,node[0][1]] and queue[i][3] > hDist+oCost][0]
-                queue[index] = [[node[0][0]+x,node[0][1]], hDist, oCost, hDist+oCost, node[0]]
-                
-        if not any([node[0][0],node[0][1]+x] == closed[i][0] for i in range(len(closed))) and world[node[0][0]][node[0][1]+x] != 1:
-            # Evaluate left and right of current node
-            # Find current heuristic and path cost
-            oCost = node[2] + 1
-            hDist = np.sqrt((end[0] - node[0][0])**2 + (end[1] - node[0][1]+x)**2)
-            
-            if not any([node[0][0],node[0][1]+x] == queue[i][0] for i in range(len(queue))):
-                # Append node child to queue if it is not yet in it
-                queue.append([[node[0][0],node[0][1]+x], hDist, oCost, hDist+oCost, node[0]])
-            
-            elif any([i for i in range(len(queue)) if queue[i][0] == [node[0][0],node[0][1]+x] and queue[i][3] > hDist+oCost]):
-                # If the node exists in the queue, and the new score is lower, update the node
-                index = [i for i in range(len(queue)) if queue[i][0] == [node[0][0],node[0][1]+x] and queue[i][3] > hDist+oCost][0]
-                queue[index] = [[node[0][0],node[0][1]+x], hDist, oCost, hDist+oCost, node[0]]
-            
-    queue.sort(key=lambda x: x[3])
 
-plt.imshow(world, cmap='binary')
+def a_star(start, end, world):
+    # Initialize node queue
+    queue = [[start[0], start[1]]]
 
-# Trace ideal path back to beginning
-parent = [end]
-while parent[0] != start:
-    plt.plot(parent[0][1],parent[0][0], marker='o', color='red')
-    parent = [closed[x][4] for x in range(len(closed)) if closed[x][0] == parent[0]]
-    
-plt.plot(parent[0][1],parent[0][0], marker='o', color='red')
-plt.show()
+    # track nodes that have been evaluated
+    closed = []
+
+    # Contained in node data:
+    #   heuristic cost, origin cost, total cost, parent x, parent y
+    node_data = [[0, 0, 0, 0, 0]]
+
+    # contains node x and y as well as respective node data
+    closed_data = []
+
+    # Run while the goal has not been reached
+    while queue:
+
+        # Pull best node off queue, add it to closed list
+        node = queue.pop(0)
+        closed_data.append([node, node_data.pop(0)])
+        closed.append(node)
+
+        # End when at goal
+        if node == end:
+            queue = []
+
+        # Open children in a 4-connected region
+        for x in [-1, 1]:
+            # Open children to the left and right
+            child_X = [node[0]+x, node[1]]
+
+            if child_X not in closed and world[child_X[0], child_X[1]] != 1:
+
+                # Find current heuristic and path cost
+                oCost = 1
+                hDist = np.sqrt((end[0]-child_X[0])**2+(end[1]-child_X[1])**2)
+
+                # Add node if not already in the queue
+                if child_X not in queue:
+
+                    queue.append(child_X)
+                    node_data.append([hDist, oCost, node[0], node[1]])
+
+            # Open children above and below
+            child_Y = [node[0], node[1]+x]
+
+            if child_Y not in closed and world[child_Y[0], child_Y[1]] != 1:
+
+                # Find current heuristic and path cost
+                oCost = 1
+                hDist = np.sqrt((end[0]-child_Y[0])**2+(end[1]-child_Y[1])**2)
+
+                # Add node if not already in the queue
+                if child_Y not in queue:
+
+                    queue.append(child_Y)
+                    node_data.append([hDist, oCost, node[0], node[1]])
+
+    # Retrace the path
+    parent = end
+    while parent != start:
+
+        # Finds the index value of the current node's parent
+        index = [i for i in range(len(closed_data)) if closed_data[i][0] == parent][0]
+
+        plt.plot(parent[1], parent[0], marker='o', color='red')
+
+        # Update the parent
+        parent = closed_data[index][1][2:4]
+
+    # Plot the final node
+    plt.plot(parent[1], parent[0], marker='o', color='red')
+
+
+if __name__ == '__main__':
+    # Load and plot the world
+    world = load_world('world.csv')
+    plt.imshow(world, cmap='binary')
+
+    # Starting and ending points
+    start = [1, 1]
+    end = [20, 20]
+
+    a_star(start, end, world)

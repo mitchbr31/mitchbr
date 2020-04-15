@@ -1,55 +1,71 @@
+#!/usr/bin/env python3
+
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import the world
-rawworld = np.genfromtxt('world.csv', delimiter=',')
 
-# Transfer world into a new array with walls all around to avoid edge cases
-world = np.ones((np.size(rawworld,1)+2,np.size(rawworld,1)+2))
-world[1:-1,1:-1] = rawworld
+def load_world(file):
+    # Import the world
+    raw_world = np.genfromtxt(file, delimiter=',')
 
-# Starting and finishing points
-start = [1,1]
-finish = [20,20]
+    # Transfer world into a new array with walls all around to avoid edge cases
+    world = np.ones((np.size(raw_world, 1)+2, np.size(raw_world, 1)+2))
+    world[1:-1, 1:-1] = raw_world
 
-# queue contains open nodes
-queue = [[start,start]]
+    return world
 
-# closed contains closed nodes
-closed = []
 
-# Iterate while queue has items in it
-while queue:
-    
-    # Pull the node off the queue
-    node = queue.pop(0)
+def BFS(start, end, world):
+    queue = [start]
+    closed = []
+    path = [[start, start]]
 
-    # Add the current node to closed, preventing it from being opened later
-    closed.append(node)
-    
+    while queue:
+        node = queue.pop(0)
+        closed.append(node)
 
-    # Check if an unknown cell has been reached
-    if node[0] == finish:
+        # Check if an unknown cell has been reached
+        if node == end:
             queue = []
 
-    # Open children in a 4-connected region
-    # Only opens if it is not already in the queue, has not been closed, and is not a wall
-    for x in [-1,1]:
-        if not any([i for i in range(len(queue)) if queue[i][0] == [node[0][0]+x,node[0][1]]]) and not any([i for i in range(len(closed)) if closed[i][0] == [node[0][0]+x,node[0][1]]]) and world[node[0][0]+x,node[0][1]] != 1:
-            queue.append([[node[0][0]+x,node[0][1]], node[0]])
-        if not any([i for i in range(len(queue)) if queue[i][0] == [node[0][0],node[0][1]+x]]) and not any([i for i in range(len(closed)) if closed[i][0] == [node[0][0],node[0][1]+x]]) and world[node[0][0],node[0][1]+x] != 1:
-            queue.append([[node[0][0],node[0][1]+x], node[0]])
-            
-            
-            
-plt.imshow(world, cmap='binary')
+        for x in [-1, 1]:
+            # Open children to the left and right
+            child_X = [node[0]+x, node[1]]
 
-# Trace ideal path back to beginning
-parent = [finish]
-while parent[0] != start:
-    plt.plot(parent[0][1],parent[0][0], marker='o', color='red')
-    parent = [closed[x][1] for x in range(len(closed)) if closed[x][0] == parent[0]]
-    
-plt.plot(parent[0][1],parent[0][0], marker='o', color='red')
-plt.show()
+            if child_X not in closed and child_X not in queue and world[child_X[0], child_X[1]] != 1:
+                queue.append(child_X)
+                path.append([child_X, node])
+
+            # Open children above and below
+            child_Y = [node[0], node[1]+x]
+
+            if child_Y not in closed and child_Y not in queue and world[child_Y[0], child_Y[1]] != 1:
+                queue.append(child_Y)
+                path.append([child_Y, node])
+
+    # Retrace the path
+    parent = end
+    while parent != start:
+
+        # Finds the index value of the current node's parent
+        index = [i for i in range(len(path)) if path[i][0] == parent][0]
+
+        plt.plot(parent[1], parent[0], marker='o', color='red')
+
+        # Update the parent
+        parent = path[index][1]
+
+    # Plot the final node
+    plt.plot(parent[1], parent[0], marker='o', color='red')
+
+
+if __name__ == '__main__':
+    # Load and plot the world
+    world = load_world('world.csv')
+    plt.imshow(world, cmap='binary')
+
+    # Starting and ending points
+    start = [1, 1]
+    end = [20, 20]
+
+    BFS(start, end, world)
