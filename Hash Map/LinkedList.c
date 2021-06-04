@@ -2,35 +2,60 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct listNode
-{
-    char *key;
-    int value;
-    struct listNode *next;
-};
-
+/* Structure to set up linked list nodes */
 struct linkedList
 {
-    size_t length;
-    struct listNode *head;
-    struct listNode *tail;
+    
+    char              *key;
+    int               value;
+    struct linkedList *next;
 };
 
-struct linkedList *initList ()
+/* Adds nodes to the end of the linked list */
+struct linkedList
+*addNode (char *key, int value, struct linkedList *head)
 {
-    struct linkedList *newList = malloc(sizeof(struct linkedList));
-    newList->head = malloc(sizeof(struct listNode));
-    newList->tail = malloc(sizeof(struct listNode));
+    // Import the new data to a new node
+    struct linkedList *newNode = malloc(sizeof(struct linkedList));
+    newNode->key = key;
+    newNode->value = value;
+    newNode->next = NULL;
 
-    newList->head->next = newList->tail;
+    if (head == NULL)
+    {
+        // The list is empty, initialize the head with the new node
+        head = newNode;
+    }
+    else
+    {
+        // The list has values, traverse to the end and add the new node
+        struct linkedList *currNode = head;
+        while (currNode->next != NULL)
+        {
+            currNode = currNode->next;
+        }
+        currNode->next = newNode;
+    }
 
-    return newList;
+    return newNode;
 };
 
 
 int main ()
 {
-    struct listNode *testNode = malloc(sizeof(struct listNode));
+    struct linkedList *head = NULL;
+    struct linkedList *tail = NULL;
 
-    struct linkedList *dict = initList();
+    head = addNode("a", 1, head);
+    tail = addNode("b", 2, head);
+    tail = addNode("c", 3, head);
+    tail = addNode("d", 4, head);
+
+    struct linkedList *currNode = head;
+    while (currNode->next != NULL)
+    {
+        printf("%s, %d\n", currNode->key, currNode->value);
+        currNode = currNode->next;
+    }
+    printf("%s, %d\n", currNode->key, currNode->value);
 }
