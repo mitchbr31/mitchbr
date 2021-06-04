@@ -10,6 +10,7 @@ struct linkedList *traverseList (struct linkedList *);
 void removeNode (struct linkedList *, char *);
 int containsNode (struct linkedList *, char *);
 int listLength (struct linkedList *);
+void freeList (struct linkedList *);
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
@@ -88,4 +89,14 @@ listLength (struct linkedList *head)
         length++;
     }
     return length;
+}
+
+void freeList (struct linkedList *head)
+{
+    while (head != NULL)
+    {
+        struct linkedList *tempNext = head->next;
+        free(head);
+        head = tempNext;
+    }
 }

@@ -16,5 +16,6 @@ struct linkedList *traverseList (struct linkedList *currNode);
 void removeNode (struct linkedList *head, char *key);
 int containsNode (struct linkedList *head, char *key);
 int listLength (struct linkedList *head);
+void freeList (struct linkedList *head);
 
 #endif

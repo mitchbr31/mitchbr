@@ -38,5 +38,7 @@ int main ()
     int len = listLength(head1);
     printf("Length of the list: %d\n", len);
 
+    void freeList (struct linkedList *head1);
+
     return 0;
 }
