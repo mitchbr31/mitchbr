@@ -7,6 +7,7 @@
 /* Function prototypes */
 struct linkedList *addNode (char *, int, struct linkedList *);
 struct linkedList *traverseList (struct linkedList *);
+void removeNode (struct linkedList *, char *);
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
@@ -39,4 +40,18 @@ struct linkedList
     while (currNode->next != NULL)
         currNode = currNode->next;
     return currNode;
+}
+
+void
+removeNode (struct linkedList *head, char *key)
+{
+    while (strcmp(head->next->key, key))
+    {
+        head = head->next;
+    }
+    
+    // Remove the node and free it from memory
+    struct linkedList *tempNode = head->next;
+    head->next = head->next->next;
+    free(tempNode);
 }
