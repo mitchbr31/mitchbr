@@ -8,15 +8,12 @@ struct dynamicArray
     size_t length; // Current length of the array
 };
 
-struct dynamicArray *createArray (size_t max_length)
+void createArray (size_t max_length, struct dynamicArray *newArr)
 {
     /* Initialize an empty array */
-    struct dynamicArray *newArr = malloc(sizeof(struct dynamicArray));
-    newArr->array = malloc(max_length*sizeof(int)); // ONLY WORKS ON INTS
+    newArr->array = malloc(max_length * sizeof(int));
     newArr->max_length = max_length;
     newArr->length = 0;
-
-    return newArr;
 }
 
 void appendArray (struct dynamicArray *arr, int value)
@@ -28,9 +25,18 @@ void appendArray (struct dynamicArray *arr, int value)
 
 int
 main () {
-    struct dynamicArray *arr1;
-    arr1 = createArray(4);
+    struct dynamicArray *arr1 = malloc(sizeof(struct dynamicArray));
+    createArray(4, arr1);
     appendArray(arr1, 1);
-    printf("%d\n", arr1->array[0]);
+    appendArray(arr1, 2);
+    appendArray(arr1, 3);
+    appendArray(arr1, 4);
+    appendArray(arr1, 5);
+    for (int i = 0; i < arr1->length; i++)
+    {
+        printf("%d\n", arr1->array[i]);
+    }
+    printf("%lu\n", sizeof(arr1->array));
+
     return 0;
 }
