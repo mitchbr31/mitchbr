@@ -3,24 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
 struct dynamicArray
 {
     int *array; // The array
     size_t max_length; // Maximum length of the currently allocated static array
     size_t length; // Current length of the array
 };
+*/
 
+/* Initialize an empty array */
 void createArray (size_t max_length, struct dynamicArray *newArr)
 {
-    /* Initialize an empty array */
     newArr->array = (int*) malloc(max_length * sizeof(int));
     newArr->max_length = max_length;
     newArr->length = 0;
 }
 
+/* Add elements to the array, reallocating as necessary */
 void appendArray (struct dynamicArray *arr, int value)
 {
-    /* Add elements to the array, reallocating as necessary */
     if (arr->max_length == arr->length)
     {
         // Reallocate when the array is full
