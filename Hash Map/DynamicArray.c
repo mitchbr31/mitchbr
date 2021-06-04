@@ -1,3 +1,5 @@
+#include "DynamicArray.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -21,19 +23,22 @@ void appendArray (struct dynamicArray *arr, int value)
     /* Add elements to the array, reallocating as necessary */
     if (arr->max_length == arr->length)
     {
-        printf("reallocating\n");
+        // Reallocate when the array is full
         struct dynamicArray newArr;
         createArray(arr->max_length * 2, &newArr);
         newArr.length = arr->length;
         for (int i = 0; i < arr->length; i++)
+            // Move values into the new array
             newArr.array[i] = arr->array[i];
         *arr = newArr;
     }
 
+    // Append the new value
     arr->array[arr->length] = value;
     arr->length++;
 }
 
+/*
 int
 main () {
     struct dynamicArray arr1;
@@ -53,3 +58,4 @@ main () {
 
     return 0;
 }
+*/
