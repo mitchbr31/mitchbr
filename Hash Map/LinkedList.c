@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Function prototypes */
+struct linkedList *addNode (char *, int, struct linkedList *);
+struct linkedList *traverseList (struct linkedList *);
+
 /* Adds nodes to the end of the linked list */
 struct linkedList
 *addNode (char *key, int value, struct linkedList *head)
@@ -22,13 +26,17 @@ struct linkedList
     else
     {
         // The list has values, traverse to the end and add the new node
-        struct linkedList *currNode = head;
-        while (currNode->next != NULL)
-        {
-            currNode = currNode->next;
-        }
-        currNode->next = newNode;
+        struct linkedList *tail = traverseList(head);
+        tail->next = newNode;
     }
 
     return newNode;
 };
+
+struct linkedList
+*traverseList (struct linkedList *currNode)
+{
+    while (currNode->next != NULL)
+        currNode = currNode->next;
+    return currNode;
+}
