@@ -1,3 +1,4 @@
+#include "LinkedList.h"
 #include "DynamicArray.h"
 
 #include <stdio.h>
@@ -15,13 +16,13 @@ struct dynamicArray
 /* Initialize an empty array */
 void createArray (size_t max_length, struct dynamicArray *newArr)
 {
-    newArr->array = (int*) malloc(max_length * sizeof(int));
+    newArr->array = malloc(max_length * sizeof(struct linkedList*));
     newArr->max_length = max_length;
     newArr->length = 0;
 }
 
 /* Add elements to the array, reallocating as necessary */
-void appendArray (struct dynamicArray *arr, int value)
+void appendArray (struct dynamicArray *arr, struct linkedList *value)
 {
     if (arr->max_length == arr->length)
     {
