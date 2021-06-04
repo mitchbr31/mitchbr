@@ -9,6 +9,7 @@ struct linkedList *addNode (char *, int, struct linkedList *);
 struct linkedList *traverseList (struct linkedList *);
 void removeNode (struct linkedList *, char *);
 int containsNode (struct linkedList *, char *);
+int listLength (struct linkedList *);
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
@@ -75,4 +76,16 @@ containsNode (struct linkedList *head, char *key)
     }
     // if the node is found, return "True"
     return 1;
+}
+
+int
+listLength (struct linkedList *head)
+{
+    int length = 0;
+    while (head != NULL)
+    {
+        head = head->next;
+        length++;
+    }
+    return length;
 }

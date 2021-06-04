@@ -30,8 +30,13 @@ int main ()
         currNode = currNode->next;
     }
 
+    // Test contains
     int x = containsNode(head1, "a1key");
-    printf("%d\n", x);
+    printf("Contains Value: %d\n", x);
+
+    // Test length
+    int len = listLength(head1);
+    printf("Length of the list: %d\n", len);
 
     return 0;
 }
