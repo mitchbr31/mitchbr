@@ -30,5 +30,8 @@ int main ()
         currNode = currNode->next;
     }
 
+    int x = containsNode(head1, "a1key");
+    printf("%d\n", x);
+
     return 0;
 }

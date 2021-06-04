@@ -8,6 +8,7 @@
 struct linkedList *addNode (char *, int, struct linkedList *);
 struct linkedList *traverseList (struct linkedList *);
 void removeNode (struct linkedList *, char *);
+int containsNode (struct linkedList *, char *);
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
@@ -46,12 +47,32 @@ void
 removeNode (struct linkedList *head, char *key)
 {
     while (strcmp(head->next->key, key))
-    {
+        // Find the node with the matching key
         head = head->next;
-    }
-    
+
     // Remove the node and free it from memory
     struct linkedList *tempNode = head->next;
     head->next = head->next->next;
     free(tempNode);
+}
+
+/* Look for a node with a provided key
+ * returns:
+ *    1 if node exits
+ *    0 if node does not exist
+ */
+int
+containsNode (struct linkedList *head, char *key)
+{
+    while (strcmp(head->key, key))
+    {
+        // Traverse the list until the node is found
+        if (head->next == NULL)
+            // If we reach the end of the list, return "False"
+            return 0;
+        else
+            head = head->next;
+    }
+    // if the node is found, return "True"
+    return 1;
 }
