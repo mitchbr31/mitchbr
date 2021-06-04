@@ -6,5 +6,5 @@ DynamicArray: DynamicArray.c
 LinkedList: LinkedList.c
 	gcc -Wall -c -std=gnu99 LinkedList.c
 
-main: 
+main: DynamicArray.o LinkedList.o
 	gcc -o main DynamicArray.o LinkedList.o
