@@ -7,7 +7,7 @@
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
-*addNode (char *key, int value, struct linkedList *head)
+*addNode (char *key, struct dynamicArray *value, struct linkedList *head)
 {
     // Import the new data to a new node
     struct linkedList *newNode = malloc(sizeof(struct linkedList));

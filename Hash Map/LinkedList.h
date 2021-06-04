@@ -1,3 +1,5 @@
+#include "DynamicArray.h"
+
 #include <stdlib.h>
 
 #ifndef LINKED_LIST_H
@@ -7,11 +9,11 @@
 struct linkedList
 {
     
-    char              *key;
-    int               value;
-    struct linkedList *next;
+    char                *key;
+    struct dynamicArray *value;
+    struct linkedList   *next;
 };
 
-struct linkedList *addNode (char *key, int value, struct linkedList *head);
+struct linkedList *addNode (char *key, struct dynamicArray *value, struct linkedList *head);
 
 #endif
