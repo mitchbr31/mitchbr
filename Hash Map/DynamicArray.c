@@ -4,17 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-struct dynamicArray
-{
-    int *array; // The array
-    size_t max_length; // Maximum length of the currently allocated static array
-    size_t length; // Current length of the array
-};
-*/
+void createArray (size_t, struct dynamicArray *);
+void appendArray (struct dynamicArray *, struct linkedList *);
+void freeArray (struct dynamicArray *);
+
 
 /* Initialize an empty array */
-void createArray (size_t max_length, struct dynamicArray *newArr)
+void
+createArray (size_t max_length, struct dynamicArray *newArr)
 {
     newArr->array = malloc(max_length * sizeof(struct linkedList*));
     newArr->max_length = max_length;
@@ -22,7 +19,8 @@ void createArray (size_t max_length, struct dynamicArray *newArr)
 }
 
 /* Add elements to the array, reallocating as necessary */
-void appendArray (struct dynamicArray *arr, struct linkedList *value)
+void
+appendArray (struct dynamicArray *arr, struct linkedList *value)
 {
     if (arr->max_length == arr->length)
     {
@@ -39,4 +37,12 @@ void appendArray (struct dynamicArray *arr, struct linkedList *value)
     // Append the new value
     arr->array[arr->length] = value;
     arr->length++;
+}
+
+void
+freeArray (struct dynamicArray *arr)
+{
+    for (int i = 0; i < arr->length; i++)
+        freeList(arr->array[i]);
+    free(arr->array);
 }

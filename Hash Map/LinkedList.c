@@ -91,7 +91,8 @@ listLength (struct linkedList *head)
     return length;
 }
 
-void freeList (struct linkedList *head)
+void
+freeList (struct linkedList *head)
 {
     while (head != NULL)
     {
