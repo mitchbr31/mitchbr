@@ -38,3 +38,12 @@ addHashNode (char *key, int value, struct hashMap *map)
     head = addNode(key, value, head);
     addAtIndex(&map->buckets, head, index);
 }
+
+int
+containsHashNode (char *key, struct hashMap *map)
+{
+    int hash = hashFunction(key);
+    int index = hash % map->capacity;
+
+    return containsNode(map->buckets.array[index], key);
+}
