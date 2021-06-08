@@ -47,3 +47,17 @@ containsHashNode (char *key, struct hashMap *map)
 
     return containsNode(map->buckets.array[index], key);
 }
+
+int
+getNode (char *key, struct hashMap *map)
+{
+    int hash = hashFunction(key);
+    int index = hash % map->capacity;
+
+    int exists = containsNode(map->buckets.array[index], key);
+    if (exists)
+        return map->buckets.array[index]->value;
+    else
+        printf("Node does not exists\n");
+        // Need to implement return value
+}
