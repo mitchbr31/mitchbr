@@ -20,14 +20,16 @@ hashFunction ( char *key)
 void
 initHashMap ( size_t max_length, struct hashMap *newMap)
 {
-    initArray(2, &newMap->buckets);
+    initArray(max_length, &newMap->buckets);
+    newMap->capacity = max_length;
+    newMap->size = 0;
 }
 
 void
-addHashNode (size_t max_length, char *key, int value, struct hashMap *map)
+addHashNode (char *key, int value, struct hashMap *map)
 {
     int hash = hashFunction(key);
-    int index = hash % max_length;
+    int index = hash % map->capacity;
 
     // Check if key exists
 
