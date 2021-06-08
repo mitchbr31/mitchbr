@@ -8,11 +8,12 @@
 
 struct hashMap
 {
-    struct linkedList   *buckets;
-    size_t              capacity;
-    size_t              size;
+    struct dynamicArray     buckets;
+    size_t                  capacity;
+    size_t                  size;
 };
 
 int hashFunction ( char *key);
+void initHashMap ( size_t max_length, struct hashMap *newMap);
 
 #endif

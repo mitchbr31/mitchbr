@@ -1,10 +1,12 @@
+#include "HashMap.h"
 #include "DynamicArray.h"
 #include "LinkedList.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 
-void TestLinkedList ()
+void
+TestLinkedList ()
 {
     printf("------------------\nBegin Linked List Tests:\n");
     // Initialize list and add some nodes
@@ -50,12 +52,13 @@ void TestLinkedList ()
     printf("Conclude Linked List Tests\n------------------\n");
 }
 
-void TestDynamicArray ()
+void
+TestDynamicArray ()
 {
     printf("------------------\nBegin Dynamic Array Tests:\n");
     // Set up an array of size 2
     struct dynamicArray arr;
-    createArray(2, &arr);
+    initArray(2, &arr);
 
     printf("------------------\nTest List Length Reallocation:\n");
     printf("%zu, %zu\n", arr.length, arr.max_length);
@@ -81,10 +84,23 @@ void TestDynamicArray ()
     freeArray(&arr);
 }
 
-int main ()
+void
+TestHashMap ()
 {
-    TestLinkedList();
-    TestDynamicArray();
+    printf("------------------\nBegin Hash Map Tests:\n");
+    struct hashMap map1;
+    initHashMap(2, &map1);
+
+    
+}
+
+int
+main ()
+{
+    //TestLinkedList();
+    //TestDynamicArray();
+    TestHashMap();
+
 
     return 0;
 }

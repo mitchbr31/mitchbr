@@ -12,7 +12,7 @@ struct dynamicArray
     size_t length; // Current length of the array
 };
 
-void createArray (size_t max_length, struct dynamicArray *newArr);
+void initArray (size_t max_length, struct dynamicArray *newArr);
 void appendArray (struct dynamicArray *arr, struct linkedList *value);
 void freeArray (struct dynamicArray *arr);
 

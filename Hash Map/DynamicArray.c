@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void createArray (size_t, struct dynamicArray *);
+void initArray (size_t, struct dynamicArray *);
 void appendArray (struct dynamicArray *, struct linkedList *);
 void freeArray (struct dynamicArray *);
 
 
 /* Initialize an empty array */
 void
-createArray (size_t max_length, struct dynamicArray *newArr)
+initArray (size_t max_length, struct dynamicArray *newArr)
 {
     newArr->array = malloc(max_length * sizeof(struct linkedList*));
     newArr->max_length = max_length;
@@ -26,7 +26,7 @@ appendArray (struct dynamicArray *arr, struct linkedList *value)
     {
         // Reallocate when the array is full
         struct dynamicArray newArr;
-        createArray(arr->max_length * 2, &newArr);
+        initArray(arr->max_length * 2, &newArr);
         newArr.length = arr->length;
         for (int i = 0; i < arr->length; i++)
             // Move values into the new array
