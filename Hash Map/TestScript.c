@@ -79,7 +79,14 @@ TestDynamicArray ()
 
     printf("%zu, %zu\n", arr.length, arr.max_length);
 
-    printf("Conclude Dynamic Array Tests\n------------------\n");
+    printf("------------------\nTest Add at Index:\n");
+    struct linkedList *head4 = malloc(sizeof(struct linkedList));
+    head4 = addNode("a1key", 1, head4);
+    addAtIndex(&arr, head4, 3);
+
+    printf("%zu, %zu\n", arr.length, arr.max_length);
+
+    printf("Conclude Dynamic Array Tests\n------------------\n\n");
 
     freeArray(&arr);
 }
@@ -91,16 +98,16 @@ TestHashMap ()
     struct hashMap map1;
     initHashMap(2, &map1);
 
-    
+    printf("------------------\nAdd a node:\n");
+    addHashNode( map1.capacity, "a1key", 1, &map1);
 }
 
 int
 main ()
 {
     //TestLinkedList();
-    //TestDynamicArray();
+    TestDynamicArray();
     TestHashMap();
-
 
     return 0;
 }
