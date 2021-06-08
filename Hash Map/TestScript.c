@@ -58,14 +58,17 @@ TestDynamicArray ()
     printf("------------------\nBegin Dynamic Array Tests:\n");
     // Set up an array of size 2
     struct dynamicArray arr;
-    initArray(2, &arr);
+    initArray(8, &arr);
 
     printf("------------------\nTest List Length Reallocation:\n");
     printf("%zu, %zu\n", arr.length, arr.max_length);
 
-    struct linkedList *head1 = malloc(sizeof(struct linkedList));
-    head1 = addNode("a1key", 1, head1);
-    appendArray(&arr, head1);
+    for (int i = 0; i < 8; i++)
+    {
+        struct linkedList *head1 = malloc(sizeof(struct linkedList));
+        head1 = addNode("a1key", 1, head1);
+        appendArray(&arr, head1);
+    }
 
     struct linkedList *head2 = malloc(sizeof(struct linkedList));
     head2 = addNode("a2key", 2, head2);
@@ -96,17 +99,20 @@ TestHashMap ()
 {
     printf("------------------\nBegin Hash Map Tests:\n");
     struct hashMap map1;
-    initHashMap(2, &map1);
+    initHashMap(20, &map1);
 
     printf("------------------\nAdd a node:\n");
-    addHashNode( map1.capacity, "a1key", 1, &map1);
+    addHashNode("a1key", 1, &map1);
+    int newHash = hashFunction("a1key");
+    int newI = newHash % map1.capacity;
+    printf("added node key: %s, node index: %d\n", map1.buckets.array[newI]->key, newI);
 }
 
 int
 main ()
 {
     //TestLinkedList();
-    TestDynamicArray();
+    //TestDynamicArray();
     TestHashMap();
 
     return 0;
