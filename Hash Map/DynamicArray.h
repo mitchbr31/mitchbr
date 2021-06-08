@@ -14,6 +14,7 @@ struct dynamicArray
 
 void initArray (size_t max_length, struct dynamicArray *newArr);
 void appendArray (struct dynamicArray *arr, struct linkedList *value);
+void addAtIndex (struct dynamicArray *arr, struct linkedList *value, int index);
 void freeArray (struct dynamicArray *arr);
 
 #endif

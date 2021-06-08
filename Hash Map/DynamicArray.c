@@ -5,7 +5,9 @@
 #include <stdlib.h>
 
 void initArray (size_t, struct dynamicArray *);
+struct linkedList *get (struct dynamicArray *, int);
 void appendArray (struct dynamicArray *, struct linkedList *);
+void addAtIndex (struct dynamicArray *, struct linkedList *, int);
 void freeArray (struct dynamicArray *);
 
 
@@ -36,6 +38,16 @@ appendArray (struct dynamicArray *arr, struct linkedList *value)
 
     // Append the new value
     arr->array[arr->length] = value;
+    arr->length++;
+}
+
+void
+addAtIndex (struct dynamicArray *arr, struct linkedList *value, int index)
+{
+    if (index > arr->max_length)
+        printf("Index %d outside range of array\n", index);
+    
+    arr->array[index] = value;
     arr->length++;
 }
 
