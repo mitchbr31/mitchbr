@@ -11,10 +11,10 @@ TestLinkedList ()
     printf("------------------\nBegin Linked List Tests:\n");
     // Initialize list and add some nodes
     struct linkedList *head1 = malloc(sizeof(struct linkedList));
-    head1 = addNode("a1key", 1, head1);
-    struct linkedList *tail1 = addNode("a2key", 2, head1);
-    tail1 = addNode("a3key", 3, head1);
-    tail1 = addNode("a4key", 4, head1);
+    head1 = addNode(head1, "a1key", 1);
+    struct linkedList *tail1 = addNode(head1, "a2key", 2);
+    tail1 = addNode(head1, "a3key", 3);
+    tail1 = addNode(head1, "a4key", 4);
 
     // Print list contents
     printf("------------------\nInitial List Contents:\n");
@@ -66,25 +66,25 @@ TestDynamicArray ()
     for (int i = 0; i < 8; i++)
     {
         struct linkedList *head1 = malloc(sizeof(struct linkedList));
-        head1 = addNode("a1key", 1, head1);
+        head1 = addNode(head1, "a1key", 1);
         appendArray(&arr, head1);
     }
 
     struct linkedList *head2 = malloc(sizeof(struct linkedList));
-    head2 = addNode("a2key", 2, head2);
+    head2 = addNode(head2, "a2key", 2);
     appendArray(&arr, head2);
 
     printf("%zu, %zu\n", arr.length, arr.max_length);    
     
     struct linkedList *head3 = malloc(sizeof(struct linkedList));
-    head3 = addNode("a3key", 3, head3);
+    head3 = addNode(head3, "a3key", 3);
     appendArray(&arr, head3);
 
     printf("%zu, %zu\n", arr.length, arr.max_length);
 
     printf("------------------\nTest Add at Index:\n");
     struct linkedList *head4 = malloc(sizeof(struct linkedList));
-    head4 = addNode("a1key", 1, head4);
+    head4 = addNode(head4, "a1key", 1);
     addAtIndex(&arr, head4, 3);
 
     printf("%zu, %zu\n", arr.length, arr.max_length);

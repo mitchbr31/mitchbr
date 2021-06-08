@@ -5,7 +5,7 @@
 #include <string.h>
 
 /* Function prototypes */
-struct linkedList *addNode (char *, int, struct linkedList *);
+struct linkedList *addNode (struct linkedList *, char *, int);
 struct linkedList *traverseList (struct linkedList *);
 void removeNode (struct linkedList *, char *);
 int containsNode (struct linkedList *, char *);
@@ -14,7 +14,7 @@ void freeList (struct linkedList *);
 
 /* Adds nodes to the end of the linked list */
 struct linkedList
-*addNode (char *key, int value, struct linkedList *head)
+*addNode (struct linkedList *head, char *key, int value)
 {
     // Import the new data to a new node
     struct linkedList *newNode = malloc(sizeof(struct linkedList));
@@ -37,6 +37,7 @@ struct linkedList
     return newNode;
 };
 
+/* Grab the node at the end of the linked list */
 struct linkedList
 *traverseList (struct linkedList *currNode)
 {
@@ -45,6 +46,7 @@ struct linkedList
     return currNode;
 }
 
+/* Remove a node from the linked list given a key */
 void
 removeNode (struct linkedList *head, char *key)
 {
@@ -79,18 +81,21 @@ containsNode (struct linkedList *head, char *key)
     return 1;
 }
 
+/* Find the number of nodes in the linked list */
 int
 listLength (struct linkedList *head)
 {
     int length = 0;
     while (head != NULL)
     {
+        // Travers through the nodes, incrementing length with each node
         head = head->next;
         length++;
     }
     return length;
 }
 
+/* Free the linked list from memory */
 void
 freeList (struct linkedList *head)
 {

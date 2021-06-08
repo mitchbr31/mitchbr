@@ -11,7 +11,7 @@ struct linkedList
     struct linkedList   *next;
 };
 
-struct linkedList *addNode (char *key, int value, struct linkedList *head);
+struct linkedList *addNode (struct linkedList *head, char *key, int value);
 struct linkedList *traverseList (struct linkedList *currNode);
 void removeNode (struct linkedList *head, char *key);
 int containsNode (struct linkedList *head, char *key);
