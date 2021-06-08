@@ -111,6 +111,10 @@ TestHashMap ()
     printf("------------------\nCheck if hash contains key:\n");
     int containsKey = containsHashNode(testKey, &map1);
     printf("Should print 1: %d\n", containsKey);
+
+    printf("------------------\n:Retrieve a node value:\n");
+    int retVal = getNode(testKey, &map1);
+    printf("Get node got: %d\n", retVal);
 }
 
 int
