@@ -23,7 +23,8 @@ initHashMap ( size_t max_length, struct hashMap *newMap)
     initArray(2, &newMap->buckets);
 }
 
-void addHashNode (size_t max_length, char *key, int value, struct hashMap *map)
+void
+addHashNode (size_t max_length, char *key, int value, struct hashMap *map)
 {
     int hash = hashFunction(key);
     int index = hash % max_length;
@@ -31,6 +32,7 @@ void addHashNode (size_t max_length, char *key, int value, struct hashMap *map)
     // Check if key exists
 
     // Add the node
-    // Add a "Get at index" function?
-    map->buckets; //= addNode(key, value, map->buckets[index]);
+    struct linkedList *head = malloc(sizeof(struct linkedList));
+    head = addNode(key, value, head);
+    addAtIndex(&map->buckets, head, index);
 }

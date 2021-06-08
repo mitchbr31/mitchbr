@@ -15,5 +15,6 @@ struct hashMap
 
 int hashFunction ( char *key);
 void initHashMap ( size_t max_length, struct hashMap *newMap);
+void addHashNode (size_t max_length, char *key, int value, struct hashMap *map);
 
 #endif
