@@ -102,10 +102,15 @@ TestHashMap ()
     initHashMap(20, &map1);
 
     printf("------------------\nAdd a node:\n");
-    addHashNode("a1key", 1, &map1);
-    int newHash = hashFunction("a1key");
+    char *testKey = "a1key";
+    addHashNode(testKey, 1, &map1);
+    int newHash = hashFunction(testKey);
     int newI = newHash % map1.capacity;
     printf("added node key: %s, node index: %d\n", map1.buckets.array[newI]->key, newI);
+
+    printf("------------------\nCheck if hash contains key:\n");
+    int containsKey = containsHashNode(testKey, &map1);
+    printf("Should print 1: %d\n", containsKey);
 }
 
 int
