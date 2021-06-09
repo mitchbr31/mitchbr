@@ -50,13 +50,27 @@ struct linkedList
 void
 removeNode (struct linkedList *head, char *key)
 {
+    struct linkedList *tempNode = head;
+
+    if (head != NULL && head->key == key)
+    {
+        head = head->next;
+        free(tempNode);
+        return;
+    }
+    
     while (strcmp(head->next->key, key))
         // Find the node with the matching key
         head = head->next;
 
+    tempNode = head->next;
+
     // Remove the node and free it from memory
-    struct linkedList *tempNode = head->next;
-    head->next = head->next->next;
+    if (head->next->next == NULL)
+        head->next = NULL;
+    else
+        head->next = head->next->next;
+    
     free(tempNode);
 }
 
