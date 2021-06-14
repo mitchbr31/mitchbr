@@ -23,16 +23,16 @@ hashFunction ( char *key)
 
 /* Initialize an empty has map */
 void
-initHashMap ( size_t max_length, struct hashMap *newMap)
+initHashMap (struct hashMap *newMap, size_t max_length)
 {
-    initArray(max_length, &newMap->buckets);
+    initArray(&newMap->buckets, max_length);
     newMap->capacity = max_length;
     newMap->size = 0;
 }
 
 /* Add a node into the hash map */
 void
-addHashNode (char *key, int value, struct hashMap *map)
+addHashNode (struct hashMap *map, char *key, int value)
 {
     int hash = hashFunction(key);
     int index = hash % map->capacity;
@@ -47,7 +47,7 @@ addHashNode (char *key, int value, struct hashMap *map)
 
 /* Check if a key exists in the hash map */
 int
-containsHashNode (char *key, struct hashMap *map)
+containsHashNode (struct hashMap *map, char *key)
 {
     int hash = hashFunction(key);
     int index = hash % map->capacity;
@@ -57,7 +57,7 @@ containsHashNode (char *key, struct hashMap *map)
 
 /* Retrieve the value of a node given the key */
 int
-getNode (char *key, struct hashMap *map)
+getHashNode (struct hashMap *map, char *key)
 {
     // Find the index of the key
     int hash = hashFunction(key);
@@ -67,6 +67,23 @@ getNode (char *key, struct hashMap *map)
     int exists = containsNode(map->buckets.array[index], key);
     if (exists)
         return map->buckets.array[index]->value;
+    else
+        printf("Node does not exists\n");
+        // Need to implement return value
+}
+
+/* Remove a node from the hash map */
+void
+removeHashNode (struct hashMap *map, char *key)
+{
+    // Find the index of the key
+    int hash = hashFunction(key);
+    int index = hash % map->capacity;
+
+    // Make sure they key exists in the hash map
+    int exists = containsNode(map->buckets.array[index], key);
+    if (exists)
+        removeNode(map->buckets.array[index], key);
     else
         printf("Node does not exists\n");
         // Need to implement return value

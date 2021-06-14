@@ -55,23 +55,20 @@ removeNode (struct linkedList *head, char *key)
     if (head != NULL && head->key == key)
     {
         head = head->next;
-        free(tempNode);
+        //free(tempNode);
         return;
     }
     
-    while (strcmp(head->next->key, key))
+    while (head->next->key != key)
         // Find the node with the matching key
         head = head->next;
 
     tempNode = head->next;
 
     // Remove the node and free it from memory
-    if (head->next->next == NULL)
-        head->next = NULL;
-    else
-        head->next = head->next->next;
+    head->next = head->next->next;
     
-    free(tempNode);
+    //free(tempNode);
 }
 
 /* Look for a node with a provided key
@@ -82,17 +79,17 @@ removeNode (struct linkedList *head, char *key)
 int
 containsNode (struct linkedList *head, char *key)
 {
-    while (strcmp(head->key, key))
+    while (head != NULL)
     {
         // Traverse the list until the node is found
-        if (head->next == NULL)
-            // If we reach the end of the list, return "False"
-            return 0;
+        if (head->key == key)
+            // If the node is found, return "True"
+            return 1;
         else
             head = head->next;
     }
-    // if the node is found, return "True"
-    return 1;
+    // if the node is not found by the end, return "False"
+    return 0;
 }
 
 /* Find the number of nodes in the linked list */

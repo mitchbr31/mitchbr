@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void initArray (size_t, struct dynamicArray *);
+void initArray ( struct dynamicArray *, size_t);
 struct linkedList *get (struct dynamicArray *, int);
 void appendArray (struct dynamicArray *, struct linkedList *);
 void addAtIndex (struct dynamicArray *, struct linkedList *, int);
@@ -13,7 +13,7 @@ void freeArray (struct dynamicArray *);
 
 /* Initialize an empty array */
 void
-initArray (size_t max_length, struct dynamicArray *newArr)
+initArray (struct dynamicArray *newArr, size_t max_length)
 {
     newArr->array = malloc(max_length * sizeof(struct linkedList*));
     newArr->max_length = max_length;
@@ -28,7 +28,7 @@ appendArray (struct dynamicArray *arr, struct linkedList *value)
     {
         // Reallocate when the array is full
         struct dynamicArray newArr;
-        initArray(arr->max_length * 2, &newArr);
+        initArray(&newArr, arr->max_length * 2);
         newArr.length = arr->length;
         for (int i = 0; i < arr->length; i++)
             // Move values into the new array
@@ -41,9 +41,11 @@ appendArray (struct dynamicArray *arr, struct linkedList *value)
     arr->length++;
 }
 
+/* Insert a value into the array at a provided index */
 void
 addAtIndex (struct dynamicArray *arr, struct linkedList *value, int index)
 {
+    // Check the index is not outside the array length
     if (index > arr->max_length)
         printf("Index %d outside range of array\n", index);
     
@@ -51,6 +53,7 @@ addAtIndex (struct dynamicArray *arr, struct linkedList *value, int index)
     arr->length++;
 }
 
+/* Free the array and all linked lists within from memory */
 void
 freeArray (struct dynamicArray *arr)
 {

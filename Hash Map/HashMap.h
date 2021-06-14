@@ -13,10 +13,11 @@ struct hashMap
     size_t                  size;
 };
 
-int hashFunction ( char *key);
-void initHashMap ( size_t max_length, struct hashMap *newMap);
-void addHashNode ( char *key, int value, struct hashMap *map);
-int containsHashNode (char *key, struct hashMap *map);
-int getNode (char *key, struct hashMap *map);
+int hashFunction (char *key);
+void initHashMap (struct hashMap *newMap, size_t max_length);
+void addHashNode (struct hashMap *map, char *key, int value);
+int containsHashNode (struct hashMap *map, char *key);
+int getHashNode (struct hashMap *map, char *key);
+void removeHashNode (struct hashMap *map, char *key);
 
 #endif
