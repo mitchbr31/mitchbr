@@ -83,7 +83,7 @@ removeHashNode (struct hashMap *map, char *key)
     // Make sure they key exists in the hash map
     int exists = containsNode(map->buckets.array[index], key);
     if (exists)
-        removeNode(map->buckets.array[index], key);
+        removeNode(&map->buckets.array[index], key);
     else
         printf("Node does not exists\n");
         // Need to implement return value

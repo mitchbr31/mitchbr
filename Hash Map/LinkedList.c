@@ -7,7 +7,7 @@
 /* Function prototypes */
 struct linkedList *addNode (struct linkedList *, char *, int);
 struct linkedList *traverseList (struct linkedList *);
-void removeNode (struct linkedList *, char *);
+void removeNode (struct linkedList **, char *);
 int containsNode (struct linkedList *, char *);
 int listLength (struct linkedList *);
 void freeList (struct linkedList *);
@@ -48,25 +48,26 @@ struct linkedList
 
 /* Remove a node from the linked list given a key */
 void
-removeNode (struct linkedList *head, char *key)
+removeNode (struct linkedList **head, char *key)
 {
-    struct linkedList *tempNode = head;
+    struct linkedList *tempNode = *head;
 
-    if (head != NULL && head->key == key)
+    if (tempNode != NULL && strcmp(tempNode->key, key) == 0)
     {
-        head = head->next;
+        // The head is to be removed
+        *head = tempNode->next;
         //free(tempNode);
         return;
     }
     
-    while (head->next->key != key)
+    while (tempNode->next->key != key)
         // Find the node with the matching key
-        head = head->next;
+        tempNode = tempNode->next;
 
-    tempNode = head->next;
+    //tempNode = tempNode->next;
 
     // Remove the node and free it from memory
-    head->next = head->next->next;
+    tempNode->next = tempNode->next->next;
     
     //free(tempNode);
 }
@@ -82,7 +83,7 @@ containsNode (struct linkedList *head, char *key)
     while (head != NULL)
     {
         // Traverse the list until the node is found
-        if (head->key == key)
+        if (strcmp(head->key, key) == 0)
             // If the node is found, return "True"
             return 1;
         else

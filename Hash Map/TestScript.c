@@ -27,14 +27,14 @@ TestLinkedList ()
 
     // Remove a Node
     printf("------------------\nRemove a3key:\n");
-    removeNode(head1, "a3key");
+    removeNode(&head1, "a3key");
     currNode = head1;
     while (currNode != NULL)
     {
         printf("%s\n", currNode->key);
         currNode = currNode->next;
     }
-    removeNode(head1, "a1key");
+    removeNode(&head1, "a1key");
     printf("Remove the head:\n");
     currNode = head1;
     while (currNode != NULL)
@@ -58,7 +58,7 @@ TestLinkedList ()
     printf("Length of the list: %d\n", len);
 
     printf("Conclude Linked List Tests\n------------------\n");
-    freeList(head1);
+    //freeList(head1);
 }
 
 void
@@ -98,6 +98,10 @@ TestDynamicArray ()
 
     printf("%zu, %zu\n", arr.length, arr.max_length);
 
+    printf("------------------\nRemoving a LL Node:\n");
+    removeNode(&arr.array[0], "a1key");
+    printf("%d\n", containsNode(arr.array[0], "a1key"));
+
     printf("Conclude Dynamic Array Tests\n------------------\n\n");
 
     freeArray(&arr);
@@ -116,6 +120,8 @@ TestHashMap ()
     int newHash = hashFunction(testKey);
     int newI = newHash % map1.capacity;
     printf("added node key: %s, node index: %d\n", map1.buckets.array[newI]->key, newI);
+    char *key2 = "a2key";
+    addHashNode(&map1, key2, 3);
 
     printf("------------------\nCheck if hash contains key:\n");
     int containsKey = containsHashNode(&map1, testKey);
@@ -129,20 +135,20 @@ TestHashMap ()
     printf("Get node got: %d\n", retVal);
 
     printf("------------------\nRemove a node :\n");
-    containsKey = containsHashNode(&map1, testKey);
+    containsKey = containsHashNode(&map1, key2);
     printf("Should print 1: %d\n", containsKey);
-    removeHashNode(&map1, testKey);
-    containsKey = containsHashNode(&map1, testKey);
+    removeHashNode(&map1, key2);
+    containsKey = containsHashNode(&map1, key2);
     printf("Should print 0: %d\n", containsKey);
-    printf("%s\n", map1.buckets.array[newI]->key);
+
 }
 
 int
 main ()
 {
-    TestLinkedList();
+    //TestLinkedList();
     //TestDynamicArray();
-    //TestHashMap();
+    TestHashMap();
 
     return 0;
 }
