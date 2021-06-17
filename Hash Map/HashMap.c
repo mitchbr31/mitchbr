@@ -83,3 +83,15 @@ removeHashNode (struct hashMap *map, char *key)
         printf("Node does not exists\n");
         // Need to implement return value
 }
+
+void
+dispHashMap(struct hashMap *map)
+{
+    for (int i = 0; i < map->capacity; i++)
+    {
+        if (map->buckets.array[i] != NULL)
+        {
+            dispList(map->buckets.array[i]);
+        }
+    }
+}

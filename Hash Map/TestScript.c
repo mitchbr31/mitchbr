@@ -18,30 +18,15 @@ TestLinkedList ()
 
     // Print list contents
     printf("------------------\nInitial List Contents:\n");
-    struct linkedList *currNode = head1;
-    while (currNode != NULL)
-    {
-        printf("%s\n", currNode->key);
-        currNode = currNode->next;
-    }
+    dispList(head1);
 
     // Remove a Node
     printf("------------------\nRemove a3key:\n");
     removeNode(&head1, "a3key");
-    currNode = head1;
-    while (currNode != NULL)
-    {
-        printf("%s\n", currNode->key);
-        currNode = currNode->next;
-    }
+    dispList(head1);
     removeNode(&head1, "a1key");
     printf("Remove the head:\n");
-    currNode = head1;
-    while (currNode != NULL)
-    {
-        printf("%s\n", currNode->key);
-        currNode = currNode->next;
-    }
+    dispList(head1);
 
     // Test contains with true and false tests
     printf("------------------\nContains a1key:\n");
@@ -146,6 +131,14 @@ TestHashMap ()
     removeHashNode(&map1, key2);
     containsKey = containsHashNode(&map1, key2);
     printf("Should print 0: %d\n", containsKey);
+
+    printf("------------------\nPrint the Hash Map:\n");
+    addHashNode(&map1, "key2", 2);
+    addHashNode(&map1, "key7", 6);
+    addHashNode(&map1, "key1", 1);
+    addHashNode(&map1, "ke2y", 3);
+
+    dispHashMap(&map1);
 
 }
 

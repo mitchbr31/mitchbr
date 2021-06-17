@@ -11,6 +11,7 @@ int getNode (struct linkedList *, char *);
 void removeNode (struct linkedList **, char *);
 int containsNode (struct linkedList *, char *);
 int listLength (struct linkedList *);
+void dispList(struct linkedList *);
 void freeList (struct linkedList *);
 
 /* Adds nodes to the end of the linked list */
@@ -123,6 +124,19 @@ listLength (struct linkedList *head)
         length++;
     }
     return length;
+}
+
+/* Print the contents of the linked list */
+void
+dispList(struct linkedList *head)
+{
+    printf("{ ");
+    while (head->next != NULL)
+    {
+        printf("'%s': %d, ", head->key, head->value);
+        head = head->next;
+    }
+    printf("'%s': %d }\n", head->key, head->value);
 }
 
 /* Free the linked list from memory */
