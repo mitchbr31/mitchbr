@@ -84,6 +84,7 @@ removeHashNode (struct hashMap *map, char *key)
         // Need to implement return value
 }
 
+/* Display the contents of the hash map */
 void
 dispHashMap(struct hashMap *map)
 {
