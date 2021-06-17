@@ -127,6 +127,11 @@ TestHashMap ()
     int containsKey = containsHashNode(&map1, testKey);
     printf("Should print 1: %d\n", containsKey);
 
+    printf("------------------\nCheck if hash contains additional key on one linked list:\n");
+    /*addHashNode(&map1, "keya1", 7);
+    containsKey = containsHashNode(&map1, "keya1");
+    printf("Should print 1: %d\n", containsKey);
+*/
     containsKey = containsHashNode(&map1, "badKey");
     printf("Should print 0: %d\n", containsKey);
 

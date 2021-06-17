@@ -13,6 +13,7 @@ struct linkedList
 
 struct linkedList *addNode (struct linkedList *head, char *key, int value);
 struct linkedList *traverseList (struct linkedList *currNode);
+int getNode (struct linkedList *head, char *key);
 void removeNode (struct linkedList **head, char *key);
 int containsNode (struct linkedList *head, char *key);
 int listLength (struct linkedList *head);

@@ -7,6 +7,7 @@
 /* Function prototypes */
 struct linkedList *addNode (struct linkedList *, char *, int);
 struct linkedList *traverseList (struct linkedList *);
+int getNode (struct linkedList *, char *);
 void removeNode (struct linkedList **, char *);
 int containsNode (struct linkedList *, char *);
 int listLength (struct linkedList *);
@@ -44,6 +45,20 @@ struct linkedList
     while (currNode->next != NULL)
         currNode = currNode->next;
     return currNode;
+}
+
+int
+getNode (struct linkedList *head, char *key)
+{
+    while (head->next != NULL && strcmp(head->key, key) == 0)
+    {
+        head = head->next;
+    }
+
+    if (head == NULL)
+        return -1;
+    else
+        return head->value;
 }
 
 /* Remove a node from the linked list given a key */
