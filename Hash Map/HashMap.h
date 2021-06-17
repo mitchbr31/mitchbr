@@ -20,5 +20,6 @@ int containsHashNode (struct hashMap *map, char *key);
 int getHashNode (struct hashMap *map, char *key);
 void removeHashNode (struct hashMap *map, char *key);
 void dispHashMap(struct hashMap *map);
+void freeHashMap( struct hashMap *map );
 
 #endif

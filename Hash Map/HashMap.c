@@ -95,3 +95,10 @@ dispHashMap(struct hashMap *map)
         }
     }
 }
+
+/* Free the hash map contents from memory */
+void
+freeHashMap( struct hashMap *map )
+{
+    freeArray(&map->buckets);
+}

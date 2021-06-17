@@ -42,8 +42,8 @@ TestLinkedList ()
     int len = listLength(head1);
     printf("Length of the list: %d\n", len);
 
-    printf("Conclude Linked List Tests\n------------------\n");
-    //freeList(head1);
+    printf("------------------\nConclude Linked List Tests\n------------------\n");
+    freeList(head1);
 }
 
 void
@@ -87,7 +87,7 @@ TestDynamicArray ()
     removeNode(&arr.array[0], "a1key");
     printf("%d\n", containsNode(arr.array[0], "a1key"));
 
-    printf("Conclude Dynamic Array Tests\n------------------\n\n");
+    printf("------------------\nConclude Dynamic Array Tests\n------------------\n\n");
 
     freeArray(&arr);
 }
@@ -140,13 +140,17 @@ TestHashMap ()
 
     dispHashMap(&map1);
 
+    printf("------------------\nConclude Hash Map Tests\n------------------\n");
+
+    freeHashMap(&map1);
+
 }
 
 int
 main ()
 {
-    //TestLinkedList();
-    //TestDynamicArray();
+    TestLinkedList();
+    TestDynamicArray();
     TestHashMap();
 
     return 0;
