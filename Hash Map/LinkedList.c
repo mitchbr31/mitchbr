@@ -47,18 +47,21 @@ struct linkedList
     return currNode;
 }
 
+/* Retrieve the value of a node given the key */
 int
 getNode (struct linkedList *head, char *key)
 {
-    while (head->next != NULL && strcmp(head->key, key) == 0)
+    while (head != NULL)
     {
+        // Iterate until the key or end of the list is found
+        if (strcmp(head->key, key) == 0)
+            return head->value;
+
         head = head->next;
     }
 
-    if (head == NULL)
-        return -1;
-    else
-        return head->value;
+    // Return -1 if the end of the list is reached
+    return -1;
 }
 
 /* Remove a node from the linked list given a key */
@@ -95,17 +98,17 @@ removeNode (struct linkedList **head, char *key)
 int
 containsNode (struct linkedList *head, char *key)
 {
-    while (head != NULL)
+    while (head != NULL && strcmp(head->key, key) != 0)
     {
-        // Traverse the list until the node is found
-        if (strcmp(head->key, key) == 0)
-            // If the node is found, return "True"
-            return 1;
-        else
-            head = head->next;
+        head = head->next;
     }
-    // if the node is not found by the end, return "False"
-    return 0;
+
+    if (head == NULL)
+        // The node was not found, return "False"
+        return 0;
+    else
+        // The node was found, return "True"
+        return 1;
 }
 
 /* Find the number of nodes in the linked list */

@@ -49,8 +49,17 @@ addAtIndex (struct dynamicArray *arr, struct linkedList *value, int index)
     if (index > arr->max_length)
         printf("Index %d outside range of array\n", index);
     
-    arr->array[index] = value;
-    arr->length++;
+    if (arr->array[index] == NULL)
+    {
+        // If this index has no nodes, create a new linked list and iterate the length
+        arr->array[index] = value;
+        arr->length++;
+    }
+    else
+    {
+        // Append the linked list if one exists at this index
+        addNode(arr->array[index], value->key, value->value);
+    }
 }
 
 /* Free the array and all linked lists within from memory */

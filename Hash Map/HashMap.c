@@ -64,16 +64,7 @@ getHashNode (struct hashMap *map, char *key)
     int index = hash % map->capacity;
 
     // Make sure they key exists in the hash map
-    int exists = containsNode(map->buckets.array[index], key);
-    if (exists)
-    {
-        return getNode(map->buckets.array[index], key);
-    }
-    else
-    {
-        printf("Node does not exists\n");
-        // Need to implement return value
-    }
+    return getNode(map->buckets.array[index], key);
 }
 
 /* Remove a node from the hash map */
